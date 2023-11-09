@@ -1,4 +1,4 @@
-# 1. Proposta
+# Proposta
 
 Os estudantes devem escolher um software com fontes no GitHub ou plataforma similar (é possível utilizar projetos dos anos anteriores). Escolhido o sistema, devem criar o ambiente e rodá-lo em ambiente de desenvolvimento.
 
