@@ -1,7 +1,8 @@
 # Recado para os amigos do Grupo
+
 VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 
-# Atualização do Projeto
+## Atualização do Projeto
 
 O projeto agora foi transferido para usar o Maven. O Maven é uma ferramenta de automação de construção que facilita a gestão de dependências e a construção do projeto.
 
