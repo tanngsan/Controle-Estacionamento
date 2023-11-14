@@ -95,7 +95,7 @@ public class CadastroAcessos implements CadastroInterface<Acesso> {
         for (Veiculo v : this.veiculos) {
             v.mostraTodosAcessosDoVeiculo();
         }
-        JOptionPane.showMessageDialog(null, lista);
+        System.out.println(lista);
     }
 
     @Override

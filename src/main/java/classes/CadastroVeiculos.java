@@ -140,7 +140,7 @@ public class CadastroVeiculos implements CadastroInterface<Veiculo> {
             return veiculoProcurado;
         } else {
             if (frequencia > 1) {
-                JOptionPane.showMessageDialog(null, "O veiculo já foi cadastrado");
+                System.out.println("O veiculo já foi cadastrado");
             }
           
             return null;
@@ -171,7 +171,7 @@ public class CadastroVeiculos implements CadastroInterface<Veiculo> {
             lista += "Veiculo " + (i) + ":\n" + "Marca: " + v.getMarca() + "\n" + "Modelo: " + v.getModelo() + "\n" + "Placa: " + v.getNumeroPlaca() + "\n";
             i++;
         }
-        JOptionPane.showMessageDialog(null, lista);
+        System.out.println(lista);
     }
 
     /**
@@ -190,7 +190,7 @@ public class CadastroVeiculos implements CadastroInterface<Veiculo> {
             }
 
         }
-        JOptionPane.showMessageDialog(null, lista);
+        System.out.println(lista);
     }
 
 }

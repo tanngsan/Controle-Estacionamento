@@ -100,7 +100,7 @@ public class CadastroProprietarios implements CadastroInterface<Proprietario> {
             lista += "Proprietario " + (i+1) + ":\n" + "Nome: " + p.getNome() + "\nCNH: " + p.getCnh() + "\nTelefone Celular: " + p.getnCelular() + "\nTelefone Residencial: " + p.getnResidencial() + "\nEndereço: " + p.getEndereco()+"\n";
             i++;
         }
-        JOptionPane.showMessageDialog(null, lista);
+        System.out.println(lista);
     }
 
     /**

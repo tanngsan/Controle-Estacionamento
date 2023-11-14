@@ -1,6 +1,6 @@
-# Recado para os amigos do Grupo
+# Não se esqueçam de atualizar o Trello
 
-VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+[Trello](https://trello.com/b/xyExlXkg/projeto-a3)
 
 ## Atualização do Projeto
 
@@ -22,3 +22,4 @@ Para executar o projeto com Maven, siga os passos abaixo:
 1. Abra um terminal e navegue até o diretório raiz do projeto (o diretório que contém o arquivo `pom.xml`).
 2. Execute o comando `mvn clean install` para limpar qualquer construção anterior e baixar todas as dependências necessárias.
 3. Após a construção bem-sucedida, você pode executar o projeto diretamente com o comando `java`, mas é melhor vocês o executarem pela sua IDE
+
