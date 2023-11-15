@@ -112,11 +112,9 @@ public class GerenciamentoEstacionamento {
                 acessoPorMinuto.setEntrada(entrada.toLocalDate(), entrada.toLocalTime());
                 acessoPorMinuto.setSaida(saida.toLocalDate(), saida.toLocalTime());
             } catch (PeriodoInvalidoException erroDePeriodoInvalido) {
-                System.out.println(erroDePeriodoInvalido.getMessage());
-                JOptionPane.showMessageDialog(null, "Periodo Inválido.");
+                System.out.println("Periodo Inválido.");
             } catch (EstacionamentoFechadoException erroDeEstacionamentoFechado) {
-                System.out.println(erroDeEstacionamentoFechado.getMessage());
-                JOptionPane.showMessageDialog(null, "Estacionamento Fechado.");
+                System.out.println("Estacionamento Fechado.");
             }
 
             Duration duracao = acessoPorMinuto.calculaDuracao();
@@ -133,12 +131,9 @@ public class GerenciamentoEstacionamento {
                 acessoPorQuinze.setEntrada(entrada.toLocalDate(), entrada.toLocalTime());
                 acessoPorQuinze.setSaida(saida.toLocalDate(), saida.toLocalTime());
             } catch (PeriodoInvalidoException erroDePeriodoInvalido) {
-                System.out.println(erroDePeriodoInvalido.getMessage());
-                JOptionPane.showMessageDialog(null, "Periodo Inválido.");
+                System.out.println("Periodo Inválido.");
             } catch (EstacionamentoFechadoException erroDeEstacionamentoFechado) {
-                System.out.println(erroDeEstacionamentoFechado.getMessage());
-                System.out.println(erroDeEstacionamentoFechado.getMessage());
-                JOptionPane.showMessageDialog(null, "Estacionamento Fechado.");
+                System.out.println("Estacionamento Fechado.");
             }
             Duration duracao = acessoPorQuinze.calculaDuracao();
             acessoPorQuinze.setDuracao(duracao);
@@ -153,11 +148,9 @@ public class GerenciamentoEstacionamento {
                 acessoPorHora.setEntrada(entrada.toLocalDate(), entrada.toLocalTime());
                 acessoPorHora.setSaida(saida.toLocalDate(), saida.toLocalTime());
             } catch (PeriodoInvalidoException erroDePeriodoInvalido) {
-                System.out.println(erroDePeriodoInvalido.getMessage());
-                JOptionPane.showMessageDialog(null, "Periodo Inválido.");
+                System.out.println("Periodo Inválido.");
             } catch (EstacionamentoFechadoException erroDeEstacionamentoFechado) {
-                System.out.println(erroDeEstacionamentoFechado.getMessage());
-                JOptionPane.showMessageDialog(null, "Estacionamento Fechado.");
+                System.out.println("Estacionamento Fechado.");
             }
             Duration duracao = acessoPorHora.calculaDuracao();
             acessoPorHora.setDuracao(duracao);
@@ -172,11 +165,9 @@ public class GerenciamentoEstacionamento {
                 acessoPorDiaria.setEntrada(entrada.toLocalDate(), entrada.toLocalTime());
                 acessoPorDiaria.setSaida(saida.toLocalDate(), saida.toLocalTime());
             } catch (EstacionamentoFechadoException erroDeEstacionamentoFechado) {
-                System.out.println(erroDeEstacionamentoFechado.getMessage());
-                JOptionPane.showMessageDialog(null, "Estacionamento Fechado.");
+                System.out.println("Estacionamento Fechado");
             } catch (PeriodoInvalidoException erroDePeriodoInvalido) {
-                System.out.println(erroDePeriodoInvalido.getMessage());
-                JOptionPane.showMessageDialog(null, "Periodo Inválido.");
+                System.out.println("Periodo Inválido.");
             }
             Duration duracao = acessoPorDiaria.calculaDuracao();
             acessoPorDiaria.setDuracao(duracao);
@@ -191,11 +182,9 @@ public class GerenciamentoEstacionamento {
                 acessoPorPernoite.setEntrada(entrada.toLocalDate(), entrada.toLocalTime());
                 acessoPorPernoite.setSaida(saida.toLocalDate(), saida.toLocalTime());
             } catch (PeriodoInvalidoException erroDePeriodoInvalido) {
-                System.out.println(erroDePeriodoInvalido.getMessage());
-                JOptionPane.showMessageDialog(null, "Periodo Inválido.");
+                System.out.println("Periodo Inválido.");
             } catch (EstacionamentoFechadoException erroDeEstacionamentoFechado) {
-                System.out.println(erroDeEstacionamentoFechado.getMessage());
-                JOptionPane.showMessageDialog(null, "Estacionamento Fechado.");
+                System.out.println("Estacionamento Fechado.");
             }
             Duration duracao = acessoPorPernoite.calculaDuracao();
             acessoPorPernoite.setDuracao(duracao);
@@ -204,7 +193,7 @@ public class GerenciamentoEstacionamento {
             acessoPorPernoite.setValor(valor);
             return acessoPorPernoite;
         } else {
-            JOptionPane.showMessageDialog(null, "Erro: Acesso inválido");
+            System.err.println("Erro: Acesso Inválido");
             return null;
         }
     }
