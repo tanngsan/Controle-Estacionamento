@@ -11,15 +11,16 @@ import exceptions.DadosVeiculosIncompletosException;
 import exceptions.EstacionamentoFechadoException;
 import exceptions.PeriodoInvalidoException;
 
-import java.text.spi.NumberFormatProvider;
-import java.time.Duration;
+//import java.text.spi.NumberFormatProvider;
+//import java.time.Duration;
 import java.time.LocalDate;
-import javax.swing.JOptionPane;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import javax.swing.JOptionPane;
+//import java.util.List;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
+import java.util.Scanner;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -41,68 +42,72 @@ public class Main {
      * @param args the command line arguments
      */
     static SistemaEstacionamento sisEstacionamento = new SistemaEstacionamento();
-
+    static Scanner teclado = new Scanner(System.in);
+    
     public static void main(String[] args) {
         menu();
+      
+    
     }
     private static void menuCadastrarRotativo() {
-        /*
-        Criando um novo registro de veiculo.
-        1-Instanciar um novo veiculo;
-        2-Setar todos os atributos do veiculo;
-        3-Se o carro já estiver registrado, lançar a exception veiculo já cadastrado;
-        4-Enviar uma mensagem de sucesso,caso seja bem sucedido.
-         */
         Veiculo veiculo = new Veiculo();
-
+    
         try {
-            String strMarca = JOptionPane.showInputDialog("Digite a marca do veículo:");
+            System.out.println("Digite a marca do veículo:");
+            String strMarca = teclado.nextLine();
             veiculo.setMarca(strMarca);
-
-            String strModelo = JOptionPane.showInputDialog("Digite o modelo do veículo:");
+    
+            System.out.println("Digite o modelo do veículo:");
+            String strModelo = teclado.nextLine();
             veiculo.setModelo(strModelo);
-
-            String strPlaca = JOptionPane.showInputDialog("Digite a placa do veículo:");
+    
+            System.out.println("Digite a placa do veículo:");
+            String strPlaca = teclado.nextLine();
             veiculo.setNumeroPlaca(strPlaca);
-
+    
             if (sisEstacionamento.buscarVeiculo(strPlaca) == null) {
-            	sisEstacionamento.cadastrarVeiculo(veiculo);
+                sisEstacionamento.cadastrarVeiculo(veiculo);
             } else {
-                JOptionPane.showMessageDialog(null, "Veículo já cadastrado!");
+                System.out.println("Veículo já cadastrado!");
             }
         } catch (DadosVeiculosIncompletosException erroDadosVeiculosIncompleto) {
             System.out.println(erroDadosVeiculosIncompleto.getMessage());
-            JOptionPane.showMessageDialog(null, "Veículo com dados incompletos");
+            System.out.println("Veículo com dados incompletos");
         }
     }
     private static void menuCadastrarProprietario() {
         Proprietario p = new Proprietario();
         try {
-            String strNome = JOptionPane.showInputDialog("Digite o nome do proprietário:");
+            System.out.println("Digite o nome do proprietário:");
+            String strNome = teclado.nextLine();
             p.setNome(strNome);
 
-            String strCnh = JOptionPane.showInputDialog("Digite o número da CNH do proprietário:");
+            System.out.println("Digite o número da CNH do proprietário:");
+            String strCnh = teclado.nextLine();
             p.setCnh(strCnh);
 
-            String strEndereco = JOptionPane.showInputDialog("Digite o endereço do proprietário:");
+            System.out.println("Digite o endereço do proprietário:");
+            String strEndereco = teclado.nextLine();
             p.setEndereco(strEndereco);
 
-            String strNcelular = JOptionPane.showInputDialog("Digite o número de telefone celular do proprietário:");
+            System.out.println("Digite o número de telefone celular do proprietário:");
+            String strNcelular = teclado.nextLine();
             p.setnCelular(strNcelular);
 
-            String strNresidencial = JOptionPane.showInputDialog("Digite o numero do telefone residencial do proprietário:");
+            System.out.println("Digite o numero do telefone residencial do proprietário:");
+            String strNresidencial = teclado.nextLine();
             p.setnResidencial(strNresidencial);
             System.out.println(strCnh);
 
             if (sisEstacionamento.buscarProprietario(strCnh) == null) {
             	sisEstacionamento.cadastrarProprietario(p);
             } else {
-                JOptionPane.showMessageDialog(null, "Proprietário já cadastrado!");
+                System.out.println("Proprietário já cadastrado!");
             }
 
         } catch (DadosPessoaisIncompletosException erroDadosProprietarioIncompleto) {
             System.out.println(erroDadosProprietarioIncompleto.getMessage());
-            JOptionPane.showMessageDialog(null, "Proprietário com dados pessoais incompletos");
+            System.out.println("Proprietário com dados pessoais incompletos");
         }
     }
     private static void menuCadastrarMensalista() {
@@ -127,32 +132,36 @@ public class Main {
          */
         Veiculo vm = new VeiculoMensalista();
 
-        String strMarcaMensalista = JOptionPane.showInputDialog("Digite a marca do veículo:");
+        System.out.println("Digite a marca do veículo:");
+        String strMarcaMensalista = teclado.nextLine();
         vm.setMarca(strMarcaMensalista);
 
-        String strModeloMensalista = JOptionPane.showInputDialog("Digite o modelo do veículo:");
+        System.out.println("Digite o modelo do veículo:");
+        String strModeloMensalista = teclado.nextLine();
         vm.setModelo(strModeloMensalista);
 
-        String strPlacaMensalista = JOptionPane.showInputDialog("Digite a placa do veículo:");
+        System.out.println("Digite a placa do veículo:");
+        String strPlacaMensalista = teclado.nextLine();
         vm.setNumeroPlaca(strPlacaMensalista);
         
-        String strCnhMensalista = JOptionPane.showInputDialog("Digite o número da CNH do proprietário:");
+        System.out.println("Digite o número da CNH do proprietário:");
+        String strCnhMensalista = teclado.nextLine();
 
         Proprietario proprietario = sisEstacionamento.buscarProprietario(strCnhMensalista);
 
         if (proprietario == null) {
-            JOptionPane.showMessageDialog(null, "Proprietário não cadastrado!");
+            System.out.println("Proprietário não cadastrado!");
         }
         else {
             if (sisEstacionamento.buscarVeiculo(strPlacaMensalista) == null) {
                 sisEstacionamento.cadastrarVeiculo(vm);
             } else {
-                JOptionPane.showMessageDialog(null, "Veículo já cadastrado!");
+                 System.out.println( "Veículo já cadastrado!");
             }
         }
         } catch (DadosVeiculosIncompletosException erroDadosVeiculosIncompleto) {
         	System.out.println(erroDadosVeiculosIncompleto.getMessage());
-        	JOptionPane.showMessageDialog(null, "Veículo com dados incompletos");
+        	 System.out.println( "Veículo com dados incompletos");
         }
     }
     private static void menuAcessoRotativo() {
@@ -165,30 +174,35 @@ public class Main {
         6-Adicionar o custo do acesso a lista de faturamento;
          */
         Veiculo comparacao = new Veiculo(); 
-        String strPlacaRotativo = JOptionPane.showInputDialog("Digite a placa do veículo:");
+        System.out.println("Digite a placa do veículo:");
+        String strPlacaRotativo = teclado.nextLine();
         Veiculo veiculoRotativo = sisEstacionamento.buscarVeiculo(strPlacaRotativo);
         if (veiculoRotativo == null) {
-            JOptionPane.showMessageDialog(null, "Veículo não cadastrado!");
+             System.out.println( "Veículo não cadastrado!");
         }
         else {
             if(veiculoRotativo.getClass()!= comparacao.getClass()){
-                JOptionPane.showMessageDialog(null, "Não é possivel acessar como usuário rotativo: Veículo cadastrado como mensalista!");
+                 System.out.println( "Não é possivel acessar como usuário rotativo: Veículo cadastrado como mensalista!");
             }
             else {
                 try {
-                    String strDataEntradaRotativo = JOptionPane.showInputDialog(null, "Digite a data da entrada:\n(Use o formato DD/MM/AA)");
+                    System.out.println( "Digite a data da entrada:\n(Use o formato DD/MM/AA)");
+                    String strDataEntradaRotativo = teclado.nextLine();
                     int[] inputDataEntradaRotativo = GerenciamentoEstacionamento.lerData(strDataEntradaRotativo);
                     LocalDate dataEntradaRotativo = LocalDate.of(inputDataEntradaRotativo[2], inputDataEntradaRotativo[1], inputDataEntradaRotativo[0]);
 
-                    String strHoraEntradaRotativo = JOptionPane.showInputDialog("Digite a hora da entrada:\n(Use o formato HH:MM)");
+                    System.out.println("Digite a hora da entrada:\n(Use o formato HH:MM)");
+                    String strHoraEntradaRotativo = teclado.nextLine();
                     int[] inputHoraEntradaRotativo = GerenciamentoEstacionamento.lerHora(strHoraEntradaRotativo);
                     LocalTime horaEntradaRotativo = LocalTime.of(inputHoraEntradaRotativo[0], inputHoraEntradaRotativo[1]);
 
-                    String strDataSaidaRotativo = JOptionPane.showInputDialog(null, "Digite a data da saída:\n(Use o formato DD/MM/AA)");
+                    System.out.println("Digite a data da saída:\n(Use o formato DD/MM/AA)");
+                    String strDataSaidaRotativo = teclado.nextLine();
                     int[] inputDataSaidaRotativo = GerenciamentoEstacionamento.lerData(strDataSaidaRotativo);
                     LocalDate dataSaidaRotativo = LocalDate.of(inputDataSaidaRotativo[2], inputDataSaidaRotativo[1], inputDataSaidaRotativo[0]);
 
-                    String strHoraSaidaRotativo = JOptionPane.showInputDialog("Digite a hora da saída:\n(Use o formato HH:MM)");
+                    System.out.println("Digite a hora da saída:\n(Use o formato HH:MM)");
+                    String strHoraSaidaRotativo = teclado.nextLine();
                     int[] inputHoraSaidaRotativo = GerenciamentoEstacionamento.lerHora(strHoraSaidaRotativo);
                     LocalTime horaSaidaRotativo = LocalTime.of(inputHoraSaidaRotativo[0], inputHoraSaidaRotativo[1]);
 
@@ -199,9 +213,9 @@ public class Main {
                     sisEstacionamento.cadastrarAcesso(acessoRotativo);
                     veiculoRotativo.setAcesso(acessoRotativo);
                 } catch (NullPointerException nullPointerException) {
-                    JOptionPane.showMessageDialog(null, "ERROR!.");
+                    System.out.println( "ERROR!.");
                 } catch (NumberFormatException numberFormatException) {
-                    JOptionPane.showMessageDialog(null, "Formato ilegal para data ou hora.");
+                    System.out.println( "Formato ilegal para data ou hora.");
                 }
             }
         }
@@ -220,15 +234,16 @@ public class Main {
         da busca o objeto procurado haja vista que o retorno do metódo é capaz de retornar um veículo;
          */
         VeiculoMensalista veiculoMensalista = new VeiculoMensalista();
-        String strPlaca = JOptionPane.showInputDialog("Digite a placa do veículo:");
+        System.out.println("Digite a placa do veículo:");
+        String strPlaca =  teclado.nextLine();
         Veiculo vm = sisEstacionamento.buscarVeiculo(strPlaca);
         if (vm == null) {
-            JOptionPane.showMessageDialog(null, "Veículo não cadastrado!");
+             System.out.println( "Veículo não cadastrado!");
             return;
         }
         if (vm.getClass()!= veiculoMensalista.getClass()){
 
-            JOptionPane.showMessageDialog(null, "O veículo da placa número: "+ strPlaca+" não tem o plano de mensalista");
+             System.out.println( "O veículo da placa número: "+ strPlaca+" não tem o plano de mensalista");
 
            return;
 
@@ -244,7 +259,8 @@ public class Main {
         setar a data no Objeto dataEntrada;
          */
         try {
-            String strDataEntrada = JOptionPane.showInputDialog(null, "Digite a data da entrada:\n(Use o formato DD/MM/AA)");
+            System.out.println( "Digite a data da entrada:\n(Use o formato DD/MM/AA)");
+            String strDataEntrada = teclado.nextLine();
             int[] inputDataEntrada = GerenciamentoEstacionamento.lerData(strDataEntrada);
             LocalDate dataEntrada = LocalDate.of(inputDataEntrada[2], inputDataEntrada[1], inputDataEntrada[0]);
 
@@ -253,7 +269,8 @@ public class Main {
         Ele basicamente retorna um vetor de inteiros de duas posições(inputHoraEntrada) que é utlizado para
         setar a hora no Objeto horaEntrada;
              */
-            String strHoraEntrada = JOptionPane.showInputDialog("Digite a hora da entrada:\n(Use o formato HH:MM)");
+            System.out.println("Digite a hora da entrada:\n(Use o formato HH:MM)");
+            String strHoraEntrada = teclado.nextLine();
             int[] inputHoraEntrada = GerenciamentoEstacionamento.lerHora(strHoraEntrada);
             LocalTime horaEntrada = LocalTime.of(inputHoraEntrada[0], inputHoraEntrada[1]);
 
@@ -261,11 +278,13 @@ public class Main {
         O método setEntrada utiliza uma data e uma hora para setar a entrada; 
         Esta data e hora foram obtidas pelo processos descritos acima.
              */
-            String strDataSaida = JOptionPane.showInputDialog(null, "Digite a data da saída:\n(Use o formato DD/MM/AA)");
+            System.out.println( "Digite a data da saída:\n(Use o formato DD/MM/AA)");
+            String strDataSaida = teclado.nextLine();
             int[] inputDataSaida = GerenciamentoEstacionamento.lerData(strDataSaida);
             LocalDate dataSaida = LocalDate.of(inputDataSaida[2], inputDataSaida[1], inputDataSaida[0]);
 
-            String strHoraSaida = JOptionPane.showInputDialog("Digite a hora da saída:\n(Use o formato HH:MM)");
+            System.out.println("Digite a hora da saída:\n(Use o formato HH:MM)");
+            String strHoraSaida = teclado.nextLine();
             int[] inputHoraSaida = GerenciamentoEstacionamento.lerHora(strHoraSaida);
             LocalTime horaSaida = LocalTime.of(inputHoraSaida[0], inputHoraSaida[1]);
 
@@ -273,15 +292,15 @@ public class Main {
             acesso.setSaida(dataSaida, horaSaida);
         } catch (PeriodoInvalidoException erroDePeriodoInvalido) {
             System.out.println(erroDePeriodoInvalido.getMessage());
-            JOptionPane.showMessageDialog(null, "Erro: Período Inválido.");
+            System.out.println( "Erro: Período Inválido.");
             return;
         } catch (EstacionamentoFechadoException erroDeEstacionamentoFechado) {
             System.out.println(erroDeEstacionamentoFechado.getMessage());
-            JOptionPane.showMessageDialog(null, "Estacionamento Fechado.");
+            System.out.println( "Estacionamento Fechado.");
         } catch (NullPointerException nullPointerException) {
-            JOptionPane.showMessageDialog(null, "ERROR.");
+            System.out.println( "ERROR.");
         } catch (NumberFormatException numberFormatException) {
-            JOptionPane.showMessageDialog(null, "Formato ilegal para data ou hora.");
+            System.out.println( "Formato ilegal para data ou hora.");
         }
 
         /*
@@ -311,29 +330,39 @@ public class Main {
             deseja realizar;
             2-Implementar os casos no switch case
              */
-            String menu
-                    = "Digite\n"
-                    + "1-Cadastrar veículo rotativo;\n"
-                    + "2-Cadastrar proprietário;\n"
-                    + "3-Cadastrar veículo mensalista;\n"
-                    + "4-Registrar acesso de usuário rotativo;\n"
-                    + "5-Registrar acesso de usuário mensalista;\n"
-                    + "6-Exibir veículos cadastrados;\n"
-                    + "7-Exibir proprietários;\n"
-                    + "8-Exibir listas de acessos;\n"
-                    + "9-Exibir faturamento.\n"
-                    + "0-Sair";
+
+           System.out.println("Digite\n"
+           + "1-Cadastrar veículo rotativo;\n"
+                + "2-Cadastrar proprietário;\n"
+                + "3-Cadastrar veículo mensalista;\n"
+                + "4-Registrar acesso de usuário rotativo;\n"
+                + "5-Registrar acesso de usuário mensalista;\n"
+                + "6-Exibir veículos cadastrados;\n"
+                + "7-Exibir proprietários;\n"
+                + "8-Exibir listas de acessos;\n"
+                + "9-Exibir faturamento.\n"
+                + "0-Sair"
+           );
             /*
-              1-Passar a string menu como parâmetro para o JOptionPane;
-              2-Ler a opção do usuário
+              
+              1-Ler a opção do usuário
              */
-            String strx = JOptionPane.showInputDialog(null, menu);
-            x = Integer.parseInt(strx);
 /*            *//*
               A string indisponivel será utilizada temporariamente para reportar 
               indisponibilidade de alguma funcionalidade;
              *//*
             String indisponivel = "Funcionalidade não implementada";*/
+
+            try{
+                /*System.out.println("escolha uma opção: ");
+                strx = teclado.nextLine();*/
+                x = Integer.parseInt(teclado.nextLine());
+
+            }catch(NumberFormatException e){
+                x = -1;
+                System.out.println("Entrada invalida. Digite um numero. ");
+            }
+
             switch (x) {
                 case 1:
                 	menuCadastrarRotativo();
@@ -351,7 +380,7 @@ public class Main {
                 	menuAcessoMensalista();
                     break;
                 case 6:
-                    /* 1-Chamar o método listar do atributo veiculos
+                    /* 1-Chamar o método listar do atributo veic1ulos
                          que é uma lista guarda objetos da classe Veiculo
                          por meio desta referênica;                        
                      */
@@ -375,17 +404,25 @@ public class Main {
                     /*
                      1-Exibir mensagem de despedida amigável ao usuário;
                      */
-                    JOptionPane.showMessageDialog(null, "         UNB © GRUPO10  "
+                    System.out.println( "         UNB © GRUPO10  "
                             + "\n"
                             + "\nLucas- Paulo- Adrian- Arthur");
                     x = 0;
                     break;
                 default:
-                    JOptionPane.showMessageDialog(null, "Opção Inválida! Tente novamente ou digite 0 para sair.");
-            }
+                    System.out.println( "Opção Inválida! Tente novamente ou digite 0 para sair.");
+                    teclado.nextInt();
+
+                    
+                }
+                
         } while (x != 0);
+            
+        //Scanner.close();
+
 
     }
+     
 
     public static void exibeFaturamento() {
         StringBuilder listaFaturamento = new StringBuilder("Faturamento:\n\n");
@@ -412,7 +449,8 @@ public class Main {
 
         }
         listaFaturamento.append("\n\nFaturamento Total: ").append(total).append(" R$");
-        JOptionPane.showMessageDialog(null, listaFaturamento.toString());
+        System.out.println( listaFaturamento.toString());
     }
 }
+
 
