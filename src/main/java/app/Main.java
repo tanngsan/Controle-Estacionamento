@@ -441,15 +441,17 @@ public class Main {
         listaFaturamento.append("Receitas de acessos rotativos: \n");
         for (int i = 0; i < sisEstacionamento.getAcessos().size(); i++) {
             if (sisEstacionamento.getAcessos().get(i).getValor() != 0) {
-                listaFaturamento.append("Tempo de permanência: ").append(sisEstacionamento.getAcessos().get(i).getDuracao().toHoursPart()).append("h ")
-                        .append(sisEstacionamento.getAcessos().get(i).getDuracao().toMinutesPart()).append("min")
+                long hours = sisEstacionamento.getAcessos().get(i).getDuracao().toHours();
+                long minutes = sisEstacionamento.getAcessos().get(i).getDuracao().toMinutes() % 60;
+                listaFaturamento.append("Tempo de permanência: ").append(hours).append("h ")
+                        .append(minutes).append("min")
                         .append("\n Valor: ").append(sisEstacionamento.getAcessos().get(i).getValor()).append(" R$");
                 total += sisEstacionamento.getAcessos().get(i).getValor();
             }
-
         }
+
         listaFaturamento.append("\n\nFaturamento Total: ").append(total).append(" R$");
-        System.out.println( listaFaturamento.toString());
+        System.out.println(listaFaturamento.toString());
     }
 }
 
