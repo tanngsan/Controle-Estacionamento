@@ -1,6 +1,5 @@
 package classes;
 
-import classes.AcessoPorQuinze;
 import exceptions.EstacionamentoFechadoException;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
