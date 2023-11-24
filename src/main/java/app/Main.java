@@ -49,32 +49,39 @@ public class Main {
       
     
     }
+
+    public Main(SistemaEstacionamento sistema) {
+        sisEstacionamento = sistema;
+    }
+
+    public static Veiculo processaCadastroRotativo(String marca, String modelo, String placa) throws DadosVeiculosIncompletosException {
+        Veiculo veiculo = new Veiculo(marca, modelo, placa);
+        if (sisEstacionamento.buscarVeiculo(placa) == null) {
+            sisEstacionamento.cadastrarVeiculo(veiculo);
+            return veiculo;
+        } else {
+            throw new DadosVeiculosIncompletosException("Veículo já cadastrado!");
+        }
+    }
+
     private static void menuCadastrarRotativo() {
-        Veiculo veiculo = new Veiculo();
-    
         try {
             System.out.println("Digite a marca do veículo:");
             String strMarca = teclado.nextLine();
-            veiculo.setMarca(strMarca);
-    
+
             System.out.println("Digite o modelo do veículo:");
             String strModelo = teclado.nextLine();
-            veiculo.setModelo(strModelo);
-    
+
             System.out.println("Digite a placa do veículo:");
             String strPlaca = teclado.nextLine();
-            veiculo.setNumeroPlaca(strPlaca);
-    
-            if (sisEstacionamento.buscarVeiculo(strPlaca) == null) {
-                sisEstacionamento.cadastrarVeiculo(veiculo);
-            } else {
-                System.out.println("Veículo já cadastrado!");
-            }
+
+            Veiculo veiculo = processaCadastroRotativo(strMarca, strModelo, strPlaca);
+            System.out.println("Veículo cadastrado com sucesso: " + veiculo);
         } catch (DadosVeiculosIncompletosException erroDadosVeiculosIncompleto) {
             System.out.println(erroDadosVeiculosIncompleto.getMessage());
-            System.out.println("Veículo com dados incompletos");
         }
     }
+
     private static void menuCadastrarProprietario() {
         Proprietario p = new Proprietario();
         try {
@@ -220,108 +227,64 @@ public class Main {
             }
         }
     }
-    private static void menuAcessoMensalista() {
-        /*
-        1-Perguntar para o usuario qual é a placa do veiculo;
-        2-Colocar em uma variável local o retorno da consulta feita;
-        3-Instanciar um acesso de acordo com o tempo de permanênica 
-        no estacionamento (acesso: minuto,por 15 minutos,por hora,por diaria,pernoite);
-        4-Setar atributos do acesso;
-        3-Colocar o acesso na referencia de acessos de veiculo;
-         */
-         /*
-        1-O método buscar procura na lista de veículos a referência pela a placa,atribuindo como resultado
-        da busca o objeto procurado haja vista que o retorno do metódo é capaz de retornar um veículo;
-         */
-        VeiculoMensalista veiculoMensalista = new VeiculoMensalista();
-        System.out.println("Digite a placa do veículo:");
-        String strPlaca =  teclado.nextLine();
-        Veiculo vm = sisEstacionamento.buscarVeiculo(strPlaca);
-        if (vm == null) {
-             System.out.println( "Veículo não cadastrado!");
-            return;
-        }
-        if (vm.getClass()!= veiculoMensalista.getClass()){
 
-             System.out.println( "O veículo da placa número: "+ strPlaca+" não tem o plano de mensalista");
-
-           return;
-
-        }
-        /*
-        A instâcia "acesso" será utilizada para compor o acesso ao veículo;
-         */
+    public static Acesso criarAcessoMensalista(String strDataEntrada, String strHoraEntrada, String strDataSaida, String strHoraSaida) throws PeriodoInvalidoException, EstacionamentoFechadoException {
+        int[] inputDataEntrada = GerenciamentoEstacionamento.lerData(strDataEntrada);
+        LocalDate dataEntrada = LocalDate.of(inputDataEntrada[2], inputDataEntrada[1], inputDataEntrada[0]);
+    
+        int[] inputHoraEntrada = GerenciamentoEstacionamento.lerHora(strHoraEntrada);
+        LocalTime horaEntrada = LocalTime.of(inputHoraEntrada[0], inputHoraEntrada[1]);
+    
+        int[] inputDataSaida = GerenciamentoEstacionamento.lerData(strDataSaida);
+        LocalDate dataSaida = LocalDate.of(inputDataSaida[2], inputDataSaida[1], inputDataSaida[0]);
+    
+        int[] inputHoraSaida = GerenciamentoEstacionamento.lerHora(strHoraSaida);
+        LocalTime horaSaida = LocalTime.of(inputHoraSaida[0], inputHoraSaida[1]);
+    
         Acesso acesso = new AcessoMensalista();
-
-        /*
-        O método lerData é utlizado para quebrar a String que é retornada pelo JOptionPane.showInputDialog;
-        Ele basicamente retorna um vetor de inteiros de três posições(inputDataEntrada) que é utilizado para 
-        setar a data no Objeto dataEntrada;
-         */
-        try {
-            System.out.println( "Digite a data da entrada:\n(Use o formato DD/MM/AA)");
-            String strDataEntrada = teclado.nextLine();
-            int[] inputDataEntrada = GerenciamentoEstacionamento.lerData(strDataEntrada);
-            LocalDate dataEntrada = LocalDate.of(inputDataEntrada[2], inputDataEntrada[1], inputDataEntrada[0]);
-
-            /*
-        O método lerHora é utilizado para quebrar a String que é retornada pelo JOptionPane.showInputDialog;
-        Ele basicamente retorna um vetor de inteiros de duas posições(inputHoraEntrada) que é utlizado para
-        setar a hora no Objeto horaEntrada;
-             */
-            System.out.println("Digite a hora da entrada:\n(Use o formato HH:MM)");
-            String strHoraEntrada = teclado.nextLine();
-            int[] inputHoraEntrada = GerenciamentoEstacionamento.lerHora(strHoraEntrada);
-            LocalTime horaEntrada = LocalTime.of(inputHoraEntrada[0], inputHoraEntrada[1]);
-
-            /*
-        O método setEntrada utiliza uma data e uma hora para setar a entrada; 
-        Esta data e hora foram obtidas pelo processos descritos acima.
-             */
-            System.out.println( "Digite a data da saída:\n(Use o formato DD/MM/AA)");
-            String strDataSaida = teclado.nextLine();
-            int[] inputDataSaida = GerenciamentoEstacionamento.lerData(strDataSaida);
-            LocalDate dataSaida = LocalDate.of(inputDataSaida[2], inputDataSaida[1], inputDataSaida[0]);
-
-            System.out.println("Digite a hora da saída:\n(Use o formato HH:MM)");
-            String strHoraSaida = teclado.nextLine();
-            int[] inputHoraSaida = GerenciamentoEstacionamento.lerHora(strHoraSaida);
-            LocalTime horaSaida = LocalTime.of(inputHoraSaida[0], inputHoraSaida[1]);
-
-            acesso.setEntrada(dataEntrada, horaEntrada);
-            acesso.setSaida(dataSaida, horaSaida);
-        } catch (PeriodoInvalidoException erroDePeriodoInvalido) {
-            System.out.println(erroDePeriodoInvalido.getMessage());
-            System.out.println( "Erro: Período Inválido.");
-            return;
-        } catch (EstacionamentoFechadoException erroDeEstacionamentoFechado) {
-            System.out.println(erroDeEstacionamentoFechado.getMessage());
-            System.out.println( "Estacionamento Fechado.");
-        } catch (NullPointerException nullPointerException) {
-            System.out.println( "ERROR.");
-        } catch (NumberFormatException numberFormatException) {
-            System.out.println( "Formato ilegal para data ou hora.");
-        }
-
-        /*
-        O processo de setar a saída é exatamente igual ao de setar a entrada  
-         */
+        acesso.setEntrada(dataEntrada, horaEntrada);
+        acesso.setSaida(dataSaida, horaSaida);
         acesso.calculaDuracao();
-        /*
-        O método calculaDuracao é basicamente um setter especial. Ele utiliza os atributos entrada e saída
-        para calcular a duração e setar no atributo duracao do objeto acesso
-         */
-
-        /*
-        O calculaPeriodo é basciamente um setter especial. Ele utiliza os atributos entrada e saída para calcular
-        
-         */
         acesso.caculaPeriodo();
-
-        vm.setAcesso(acesso);
-
-        sisEstacionamento.cadastrarAcesso(acesso);
+    
+        return acesso;
     }
+    
+
+    private static void menuAcessoMensalista() {
+        System.out.println("Digite a placa do veículo:");
+        String strPlaca = teclado.nextLine();
+        Veiculo vm = sisEstacionamento.buscarVeiculo(strPlaca);
+    
+        if (vm == null) {
+            System.out.println("Veículo não cadastrado!");
+            return;
+        }
+    
+        if (!(vm instanceof VeiculoMensalista)) {
+            System.out.println("O veículo da placa número: " + strPlaca + " não tem o plano de mensalista");
+            return;
+        }
+    
+        try {
+            System.out.println("Digite a data da entrada (Use o formato DD/MM/AA):");
+            String strDataEntrada = teclado.nextLine();
+            System.out.println("Digite a hora da entrada (Use o formato HH:MM):");
+            String strHoraEntrada = teclado.nextLine();
+            System.out.println("Digite a data da saída (Use o formato DD/MM/AA):");
+            String strDataSaida = teclado.nextLine();
+            System.out.println("Digite a hora da saída (Use o formato HH:MM):");
+            String strHoraSaida = teclado.nextLine();
+    
+            Acesso acesso = criarAcessoMensalista(strDataEntrada, strHoraEntrada, strDataSaida, strHoraSaida);
+            vm.setAcesso(acesso);
+            sisEstacionamento.cadastrarAcesso(acesso);
+    
+        } catch (PeriodoInvalidoException | EstacionamentoFechadoException | NullPointerException | NumberFormatException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
     public static void menu() {
         int x;
         do {
@@ -422,37 +385,56 @@ public class Main {
 
 
     }
-     
+
+    public static double calcularFaturamento() {
+        double total = 0;
+        Veiculo vmensalista = new VeiculoMensalista();
+    
+        // Calcula faturamento de mensalistas
+        for (Veiculo veiculo : sisEstacionamento.getVeiculos()) {
+            if (veiculo.getClass() == vmensalista.getClass()) {
+                total += 500; // Supondo que 500 seja a taxa fixa
+            }
+        }
+    
+        // Calcula faturamento de acessos rotativos
+        for (Acesso acesso : sisEstacionamento.getAcessos()) {
+            if (acesso.getValor() != 0) {
+                total += acesso.getValor();
+            }
+        }
+    
+        return total;
+    }    
 
     public static void exibeFaturamento() {
         StringBuilder listaFaturamento = new StringBuilder("Faturamento:\n\n");
-        double total = 0;
-
+        double total = calcularFaturamento();
+    
         Veiculo vmensalista = new VeiculoMensalista();
         listaFaturamento.append("Receita de mensalidades: \n\n");
-        for (int i = 0; i < sisEstacionamento.getVeiculos().size(); i++) {
-            if(sisEstacionamento.getVeiculos().get(i).getClass()== vmensalista.getClass()){
-            	listaFaturamento.append("Mensalidade: ").append(i + 1)
-                        .append("\nPlaca do veículo mensalista : ").append(sisEstacionamento.getVeiculos().get(i).getNumeroPlaca())
-                        .append("\nValor da mensalidade: 500 R$\n\n");
-            	total += 500;
+        for (Veiculo veiculo : sisEstacionamento.getVeiculos()) {
+            if (veiculo.getClass() == vmensalista.getClass()) {
+                listaFaturamento.append("Mensalidade: ")
+                                .append("\nPlaca do veículo mensalista: ").append(veiculo.getNumeroPlaca())
+                                .append("\nValor da mensalidade: 500 R$\n\n");
             }
         }
+    
         listaFaturamento.append("Receitas de acessos rotativos: \n");
-        for (int i = 0; i < sisEstacionamento.getAcessos().size(); i++) {
-            if (sisEstacionamento.getAcessos().get(i).getValor() != 0) {
-                long hours = sisEstacionamento.getAcessos().get(i).getDuracao().toHours();
-                long minutes = sisEstacionamento.getAcessos().get(i).getDuracao().toMinutes() % 60;
+        for (Acesso acesso : sisEstacionamento.getAcessos()) {
+            if (acesso.getValor() != 0) {
+                long hours = acesso.getDuracao().toHours();
+                long minutes = acesso.getDuracao().toMinutes() % 60;
                 listaFaturamento.append("Tempo de permanência: ").append(hours).append("h ")
-                        .append(minutes).append("min")
-                        .append("\n Valor: ").append(sisEstacionamento.getAcessos().get(i).getValor()).append(" R$");
-                total += sisEstacionamento.getAcessos().get(i).getValor();
+                                .append(minutes).append("min")
+                                .append("\n Valor: ").append(acesso.getValor()).append(" R$");
             }
         }
-
+    
         listaFaturamento.append("\n\nFaturamento Total: ").append(total).append(" R$");
         System.out.println(listaFaturamento.toString());
-    }
+    }    
 }
 
 
