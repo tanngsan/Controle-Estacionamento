@@ -24,4 +24,8 @@ public class DadosVeiculosIncompletosException extends Exception {
 
     }
 
+    public DadosVeiculosIncompletosException(String message) {
+        super(message);
+    }
+
 }

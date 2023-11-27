@@ -186,18 +186,18 @@ public class Veiculo {
     public String mostraTodosAcessosDoVeiculo() {
         StringBuilder lista = new StringBuilder();
         int i =0;
-        lista.append("\nNúmero de acessos realizados pelo veículo: "+(acessos.size())+"\n");
+        lista.append("\nNúmero de acessos realizados pelo veículo: " + (acessos.size()) + "\n");
         for (Acesso acesso : acessos) {
             if (!acessos.isEmpty()) {
                 LocalDateTime entrada = acesso.getEntrada();
                 LocalDateTime saida = acesso.getSaida();
-                lista.append("Acesso nº "+(i+1)).append("\nEntrada                          |    Saída    \n")
-                	.append("Dia: "+entrada.getDayOfMonth()+"/"+entrada.getMonthValue()+"/"+entrada.getYear())
-                	.append("                 |    Dia:"+saida.getDayOfMonth()+"/"+saida.getMonthValue()+"/"+saida.getYear())
-                	.append("\nHora: "+entrada.toLocalTime().toString())
-                	.append("                    |    Hora:"+saida.toLocalTime().toString())
-                	.append("\nTempo de permanência: ").append(acesso.duracao.toHoursPart() + "h " + acesso.duracao.toMinutesPart() + "min")
-                	.append("\nValor a ser cobrado: ").append(acesso.getValor() + "R$\n\n");
+                lista.append("Acesso nº " + (i + 1)).append("\nEntrada                          |    Saída    \n")
+                        .append("Dia: " + entrada.getDayOfMonth() + "/" + entrada.getMonthValue() + "/" + entrada.getYear())
+                        .append("                 |    Dia:" + saida.getDayOfMonth() + "/" + saida.getMonthValue() + "/" + saida.getYear())
+                        .append("\nHora: " + entrada.toLocalTime().toString())
+                        .append("                    |    Hora:" + saida.toLocalTime().toString())
+                        .append("\nTempo de permanência: ").append(acesso.duracao.toHours() + "h " + acesso.duracao.toMinutes() % 60 + "min")
+                        .append("\nValor a ser cobrado: ").append(acesso.getValor() + "R$\n\n");
                 i++;
             }
         }
