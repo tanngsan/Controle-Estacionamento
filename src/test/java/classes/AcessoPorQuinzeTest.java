@@ -1,13 +1,16 @@
 package classes;
 
-import exceptions.EstacionamentoFechadoException;
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import exceptions.EstacionamentoFechadoException;
 
 public class AcessoPorQuinzeTest {
 
@@ -51,6 +54,6 @@ public class AcessoPorQuinzeTest {
         LocalTime horaFechada = LocalTime.of(22, 0); // Horário após o fechamento do estacionamento.
 
         assertThrows(EstacionamentoFechadoException.class, () -> acesso.setEntrada(dia, horaFechada),
-                     "Deve lançar EstacionamentoFechadoException para um horário após o fechamento do estacionamento.");
+           "Deve lançar EstacionamentoFechadoException para um horário após o fechamento do estacionamento.");
     }
 }
